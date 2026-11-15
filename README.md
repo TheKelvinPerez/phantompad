@@ -1,104 +1,125 @@
+<p align="center">
+  <img src="assets/icon.png" width="160" alt="PhantomPad paper ghost icon">
+</p>
+
 # PhantomPad
 
-A transparent markdown overlay pad for macOS that follows you across every
-workspace. Built for use with AeroSpace, where a plain always-on-top window
-does not follow you between workspaces but a non-activating panel that joins
-all spaces does.
+A transparent Markdown notepad that stays above your work and follows you across
+macOS workspaces, including AeroSpace. Keep a thought, a checklist, or a reference
+close by without switching away from what you are doing.
 
-## How the panel behavior works
+## Why I built it
 
-The window is created with `type: 'panel'`, which makes Electron use its
-native `ElectronNSPanel` window class on macOS. That class adds the
-`NSWindowStyleMaskNonactivatingPanel` style mask and forces
-`NSWindowCollectionBehaviorCanJoinAllSpaces` plus
-`NSWindowCollectionBehaviorFullScreenAuxiliary`, which is exactly what a
-Stickies-style panel gets:
+PhantomPad was inspired by **GhostPad by yahitscara**. I liked its simple,
+transparent notepad idea, but I couldn't get the updates I needed or reach its
+website, so I recreated it for my own workflow. PhantomPad adds a macOS panel
+that works with AeroSpace, safer file handling, and a modern sans serif editor.
 
-- The pad appears in every space, so it follows you between AeroSpace
-  workspaces
-- Clicking the pad never activates the app, so whatever you are working in
-  keeps its active status and menu bar while the pad receives keyboard input
-- The pad stays visible over full-screen apps
+The original [GhostPad repository](https://github.com/yahitscara/GhostPad) and
+[website](https://ghostpad.io/) were unavailable when checked on November 15,
+2026. That describes their availability at the time, not their future status.
+PhantomPad is an independent project and is not affiliated with GhostPad.
 
-On top of that the window is transparent, frameless, borderless, shadow-free,
-and pinned with the `screen-saver` always-on-top level.
+## Features
 
-## What it does
+- Transparent, always-on-top editor with adjustable opacity.
+- A macOS panel that follows workspace changes without taking over the active app.
+- Open and save Markdown or plain text files, including files in an Obsidian vault.
+- Autosave every two seconds after a file has a saved location.
+- Save, discard, and cancel protection before opening, creating, or quitting a note.
+- Light and dark themes, optional dimming, and persistent window bounds.
+- Native system sans serif typography and a dedicated app icon.
+- Launch from Vicinae or another macOS application launcher.
 
-- Markdown and text files: open, save, new note
-- Iowan Old Style serif editor with a larger, comfortable reading size
-- Autosave every 2 seconds once the note has a file path
-- Unsaved-changes guards on new, open, and quit
-- Opacity slider (10 to 100 percent), light and dark mode
-- Dims when it is not the key window, brightens when you click into it
-- Window position and size persist across sessions
-- Toggle the pad with a global hotkey, Control+Option+Shift+P by default
-- Esc hides the pad, close button hides instead of quitting
+The editor works with Markdown source text. It does not render a Markdown preview.
 
-## AeroSpace
+## Install on macOS
 
-The macOS bridge sets the panel's accessibility subrole to `AXUnknown` and
-removes its native accessibility close button. AeroSpace then treats it as
-an overlay rather than a managed window. The custom editor and controls
-remain accessible. No floating-follow script is needed.
+Download the Apple Silicon ZIP from [Releases](https://github.com/TheKelvinPerez/phantompad/releases),
+extract it, and copy **PhantomPad.app** into `~/Applications` or `/Applications`.
+Then search for **PhantomPad** in your launcher.
 
-This has been verified with AeroSpace 0.21.3-Beta. Its window-detection
-heuristics can change, so check that PhantomPad remains absent from
-`aerospace list-windows --all` after an AeroSpace upgrade.
+The provided build is locally ad-hoc signed, not Developer ID signed or Apple
+notarized. macOS may prevent it from opening. You can build it yourself using the
+instructions below. Intel builds can be produced on an Intel Mac; an Intel
+release binary is not currently provided.
 
-## Run it
+PhantomPad runs as an accessory app, so it intentionally has no persistent Dock
+icon. Launching it again restores a hidden pad. Quit a running copy before
+replacing its application bundle.
 
-```bash
-npm ci
-npm test
-npm start
-```
+## Keyboard shortcuts
 
-On macOS, installation builds a small Node-API bridge with Xcode Command
-Line Tools and Python. Electron is pinned in the lockfile. Run `npm run build`
-to rebuild the bridge, and `npm run check` for JavaScript syntax checks.
-The start script clears an inherited `ELECTRON_RUN_AS_NODE`, including when
-launched from a desktop development tool.
+| Action | Shortcut |
+| --- | --- |
+| Show or hide the pad | Control + Option + Shift + P |
+| New note | Command + N |
+| Open file | Command + O |
+| Save | Command + S |
+| Quit with unsaved-change protection | Command + Q |
+| Hide from the editor | Escape |
 
-## macOS app package
-
-```bash
-npm run package:mac
-```
-
-This builds the bridge, creates the icon, packages the current Mac architecture,
-verifies a local ad-hoc signature, and produces an app plus ZIP under `dist/`.
-Copy the resulting `PhantomPad.app` to `~/Applications` to make it available to
-Vicinae and other macOS launchers. Search for **PhantomPad** in Vicinae.
-Relaunching from the launcher also restores a hidden pad.
-
-The installed app has bundle ID `dev.kelvinperez.phantompad`. It shares the
-source app's preferences in `~/Library/Application Support/phantompad`.
-It uses accessory mode, so it intentionally has no persistent Dock icon.
-Quit any running copy before replacing an installed bundle.
-
-This build is for local use. Developer ID signing and Apple notarization for
-public distribution are not configured.
-
-## Hotkey
-
-Default is Control+Option+Shift+P, keeping Space shortcuts available for voice transcription. Override with an environment variable:
+For a different global toggle when running from source:
 
 ```bash
 PHANTOMPAD_HOTKEY="Alt+P" npm start
 ```
 
-Electron accelerator syntax applies, for example "Alt+Space", "Ctrl+Alt+P",
-"CmdOrCtrl+Shift+D".
+## Build from source
 
-## Notes
+You need Node.js 26 or later. On macOS, the small native bridge also requires
+Xcode Command Line Tools and Python.
 
-- On Windows and Linux the pad falls back to Electron's built-in
-  visible-on-all-workspaces plus always-on-top behavior.
-- Markdown preview is a planned extension, the editor is plain text for now.
+```bash
+git clone https://github.com/TheKelvinPerez/phantompad.git
+cd phantompad
+npm ci
+npm test
+npm run check
+npm start
+```
 
-## Attribution
+Create a macOS application and ZIP for the current Mac's architecture:
 
-Inspired by GhostPad by yahitscara. Includes adapted editor and file-handling
-code from its MIT-licensed application. The macOS overlay bridge and additional
-data-loss protection are maintained as part of PhantomPad.
+```bash
+npm run package:mac
+```
+
+Packaging rebuilds the native bridge, creates all icon sizes, bundles the app,
+and verifies its local signature. Outputs are written to `dist/`.
+
+## AeroSpace and platform support
+
+On macOS, Electron's `type: 'panel'` creates an `ElectronNSPanel`. A small
+Node-API bridge marks it as an accessibility overlay so AeroSpace leaves it
+outside its managed window tree. It does not need a floating-follow script.
+The editor and custom controls remain accessible.
+
+This behavior was verified with AeroSpace 0.21.3-Beta. Recheck it after an
+AeroSpace upgrade because its window-detection heuristics can change.
+Native full-screen behavior has not been validated.
+
+Windows and Linux use Electron's fallback always-on-top behavior. Those
+platforms have not been tested, and macOS panel behavior is not promised there.
+
+## Your files and preferences
+
+Notes stay in the files you choose. Unsaved notes remain in memory and are not
+recovered after a crash. Theme, opacity, and window bounds are stored locally
+under `~/Library/Application Support/phantompad` on macOS. Source and packaged
+copies share those preferences and should not run simultaneously.
+
+PhantomPad has no account requirement, telemetry, or automatic update service.
+Update by installing a newer release.
+
+## Contributing
+
+Bug reports and focused improvements are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md)
+for the development checks and what to include in a report.
+
+## License and attribution
+
+[MIT](LICENSE). Includes adapted editor and file-handling code from GhostPad,
+whose application identifies yahitscara as its author and declares the MIT
+license. The original attribution is retained in the license. The macOS overlay
+bridge and additional file safety behavior are maintained as part of PhantomPad.

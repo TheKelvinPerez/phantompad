@@ -1,6 +1,6 @@
 {
   "name": "phantompad",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "PhantomPad - a transparent markdown overlay pad that follows you across workspaces",
   "main": "main.js",
   "license": "MIT",
@@ -17,5 +17,17 @@
     "electron": "45.3.2",
     "node-gyp": "13.1.0"
   },
-  "productName": "PhantomPad"
+  "productName": "PhantomPad",
+  "author": "Kelvin Perez",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheKelvinPerez/phantompad.git"
+  },
+  "homepage": "https://github.com/TheKelvinPerez/phantompad#readme",
+  "bugs": {
+    "url": "https://github.com/TheKelvinPerez/phantompad/issues"
+  },
+  "engines": {
+    "node": ">=26.0.0"
+  }
 }

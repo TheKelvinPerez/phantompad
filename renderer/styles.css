@@ -181,7 +181,7 @@ body {
   outline: none;
   background: transparent;
   padding: 14px 16px;
-  font-family: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
   font-size: 18px;
   line-height: 1.65;
   color: #222;
