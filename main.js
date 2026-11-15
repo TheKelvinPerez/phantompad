@@ -189,6 +189,10 @@ function handleQuitAttempt() {
 // App lifecycle
 // ---------------------------------------------------------------------------
 
+// Keep the source and packaged app on the same notes and preferences directory.
+app.setPath('userData', path.join(app.getPath('appData'), 'phantompad'));
+app.setName('PhantomPad');
+
 const gotLock = app.requestSingleInstanceLock();
 if (!gotLock) {
   app.quit();
@@ -221,6 +225,9 @@ if (!gotLock) {
     app.on('activate', () => {
       if (BrowserWindow.getAllWindows().length === 0) {
         createWindow();
+      } else if (mainWindow) {
+        mainWindow.restore();
+        mainWindow.show();
       }
     });
   });

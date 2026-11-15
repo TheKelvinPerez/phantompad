@@ -181,9 +181,9 @@ body {
   outline: none;
   background: transparent;
   padding: 14px 16px;
-  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Cascadia Code', 'Consolas', monospace;
-  font-size: 13px;
-  line-height: 1.6;
+  font-family: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.65;
   color: #222;
   user-select: text;
   -webkit-user-select: text;

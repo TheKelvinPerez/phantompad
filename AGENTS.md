@@ -12,4 +12,5 @@ Transparent Markdown notepad using Electron and a small macOS Node-API bridge.
   `aerospace list-windows --all`, keyboard input without activation, and visible
   bounds across workspace switches when changing native window behavior.
 - Keep notes, user preferences, credentials, build output, and node_modules out of Git.
-- Signed packaging and native fullscreen validation are unfinished.
+- `npm run package:mac` builds a locally signed app and ZIP. Keep packaging outputs out of Git.
+- Public Developer ID signing, notarization, and native fullscreen validation are unfinished.

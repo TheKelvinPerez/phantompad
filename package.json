@@ -7,12 +7,15 @@
   "scripts": {
     "start": "node scripts/start.js",
     "test": "node --test tests/*.test.js",
-    "check": "node --check main.js && node --check preload.js && node --check renderer/renderer.js && node --check window-bounds.js && node --check scripts/start.js && node --check scripts/build-native.js",
+    "check": "node --check main.js && node --check preload.js && node --check renderer/renderer.js && node --check window-bounds.js && node --check scripts/start.js && node --check scripts/build-native.js && node --check scripts/make-icon.js && node --check scripts/package-mac.js",
     "install": "node scripts/build-native.js",
-    "build": "node scripts/build-native.js"
+    "build": "node scripts/build-native.js",
+    "package:mac": "node scripts/package-mac.js"
   },
   "devDependencies": {
+    "@electron/packager": "20.3.0",
     "electron": "45.3.2",
     "node-gyp": "13.1.0"
-  }
+  },
+  "productName": "PhantomPad"
 }

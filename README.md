@@ -26,6 +26,7 @@ and pinned with the `screen-saver` always-on-top level.
 ## What it does
 
 - Markdown and text files: open, save, new note
+- Iowan Old Style serif editor with a larger, comfortable reading size
 - Autosave every 2 seconds once the note has a file path
 - Unsaved-changes guards on new, open, and quit
 - Opacity slider (10 to 100 percent), light and dark mode
@@ -59,8 +60,25 @@ to rebuild the bridge, and `npm run check` for JavaScript syntax checks.
 The start script clears an inherited `ELECTRON_RUN_AS_NODE`, including when
 launched from a desktop development tool.
 
-The current deliverable runs from source. A signed, packaged application
-and installer are not included.
+## macOS app package
+
+```bash
+npm run package:mac
+```
+
+This builds the bridge, creates the icon, packages the current Mac architecture,
+verifies a local ad-hoc signature, and produces an app plus ZIP under `dist/`.
+Copy the resulting `PhantomPad.app` to `~/Applications` to make it available to
+Vicinae and other macOS launchers. Search for **PhantomPad** in Vicinae.
+Relaunching from the launcher also restores a hidden pad.
+
+The installed app has bundle ID `dev.kelvinperez.phantompad`. It shares the
+source app's preferences in `~/Library/Application Support/phantompad`.
+It uses accessory mode, so it intentionally has no persistent Dock icon.
+Quit any running copy before replacing an installed bundle.
+
+This build is for local use. Developer ID signing and Apple notarization for
+public distribution are not configured.
 
 ## Hotkey
 

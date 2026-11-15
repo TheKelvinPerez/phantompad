@@ -6,7 +6,7 @@ const { EventEmitter } = require('node:events');
 function setup() {
   const ipcMain = new EventEmitter(); ipcMain.handle = () => {};
   const app = new EventEmitter();
-  Object.assign(app, { requestSingleInstanceLock: () => true, whenReady: () => new Promise(() => {}), quit() {}, getPath: () => '/unused' });
+  Object.assign(app, { requestSingleInstanceLock: () => true, whenReady: () => new Promise(() => {}), quit() {}, getPath: () => '/unused', setPath() {}, setName() {} });
   const timers = new Map();
   const errors = [];
   const electron = { app, ipcMain, dialog: { showMessageBox: async (_, options) => { errors.push(options); return { response: 2 }; } } };
